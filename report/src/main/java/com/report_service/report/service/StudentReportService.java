@@ -34,7 +34,7 @@ public class StudentReportService {
 
             if (studentById.isPresent()) {
 
-                Optional<StudentDetail> studentDetail = studentDetailRepository.findById(id);
+                Optional<StudentDetail> studentDetail = studentDetailRepository.findByStudent(studentById.get());
 
                 BeanUtils.copyProperties(studentById.get(), result);
 
@@ -72,7 +72,7 @@ public class StudentReportService {
                 StudentsDto singleStudent = new StudentsDto();
                 BeanUtils.copyProperties(studentLoop, singleStudent);
 
-                Optional<StudentDetail> studentDetail = studentDetailRepository.findById(studentLoop.getId());
+                Optional<StudentDetail> studentDetail = studentDetailRepository.findByStudent(studentLoop);
 
                 if (studentDetail.isPresent()) {
                     StudentDetailDto detail = new StudentDetailDto();
@@ -125,7 +125,7 @@ public class StudentReportService {
 
             if (studentByName != null) {
 
-                Optional<StudentDetail> studentDetail = studentDetailRepository.findById(studentByName.getId());
+                Optional<StudentDetail> studentDetail = studentDetailRepository.findByStudent(studentByName);
 
                 BeanUtils.copyProperties(studentByName, resStudentsDto);
 

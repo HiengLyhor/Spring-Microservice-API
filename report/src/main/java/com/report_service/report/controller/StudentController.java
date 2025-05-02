@@ -2,6 +2,7 @@ package com.report_service.report.controller;
 
 import com.report_service.report.dto.StudentReportByGradeDto;
 import com.report_service.report.dto.StudentsDto;
+import com.report_service.report.model.StudentDetail;
 import com.report_service.report.service.StudentReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,7 +35,7 @@ public class StudentController {
     }
 
     @GetMapping("student-grade/{grade}")
-    StudentReportByGradeDto studentReportByGrade(@PathVariable String grade) {
+    List<StudentDetail> studentReportByGrade(@PathVariable String grade) {
         return service.getStudentByGrade(grade);
     }
 

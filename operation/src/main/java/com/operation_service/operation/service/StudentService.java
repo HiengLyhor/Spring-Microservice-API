@@ -42,8 +42,11 @@ public class StudentService {
             BeanUtils.copyProperties(request, students);
             BeanUtils.copyProperties(request, studentDetail);
 
-            studentDetailRepository.save(studentDetail);
+            studentDetail.setStudent(students);
+            students.setStudentDetail(studentDetail);
+
             studentRepository.save(students);
+            studentDetailRepository.save(studentDetail);
 
             return ResponseEntity.ok(request);
 

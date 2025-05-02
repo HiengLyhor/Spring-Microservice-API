@@ -1,19 +1,25 @@
 package com.report_service.report.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.sql.Timestamp;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "StudentDetail")
 public class StudentDetail {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     Long id;
+
+    @OneToOne
+    @JoinColumn(name = "STUDENT_ID", referencedColumnName = "ID")
+    private Students student;
 
     @Column(name = "GRADE")
     String grade;
@@ -27,43 +33,4 @@ public class StudentDetail {
     @Column(name = "ISSUE_COUNT")
     Long issueCount;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getGrade() {
-        return grade;
-    }
-
-    public void setGrade(String grade) {
-        this.grade = grade;
-    }
-
-    public String getParentContact() {
-        return parentContact;
-    }
-
-    public void setParentContact(String parentContact) {
-        this.parentContact = parentContact;
-    }
-
-    public Timestamp getEnrollDate() {
-        return enrollDate;
-    }
-
-    public void setEnrollDate(Timestamp enrollDate) {
-        this.enrollDate = enrollDate;
-    }
-
-    public Long getIssueCount() {
-        return issueCount;
-    }
-
-    public void setIssueCount(Long issueCount) {
-        this.issueCount = issueCount;
-    }
 }

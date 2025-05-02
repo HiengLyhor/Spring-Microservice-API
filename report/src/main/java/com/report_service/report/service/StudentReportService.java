@@ -93,38 +93,19 @@ public class StudentReportService {
 
     }
 
-    public StudentReportByGradeDto getStudentByGrade(String grade) {
+    public List<StudentDetail> getStudentByGrade(String grade) {
 
         try {
 
-            StudentReportByGradeDto result = new StudentReportByGradeDto();
-            result.setGrade(grade);
+            List<StudentDetail> result = new ArrayList<>();
 
-            List<StudentDetail> studentByGrade = studentDetailRepository.findByGrade(grade);
+            StudentDetail studentDetail = new StudentDetail();
+            Students students = new Students();
 
-            if (studentByGrade.isEmpty()) {
-                return result;
-            }
+            students.setName("Data Unavailable.");
+            studentDetail.setStudent(students);
 
-            List<StudentsDto> studentsDtos = new ArrayList<>();
-
-            for (StudentDetail studentDetailLoop : studentByGrade) {
-
-                StudentsDto singleStudent = new StudentsDto();
-
-                Optional<Students> studentData = studentRepository.findById(studentDetailLoop.getId());
-                studentData.ifPresent(students -> BeanUtils.copyProperties(students, singleStudent));
-
-                StudentDetailDto studentDetail = new StudentDetailDto();
-                BeanUtils.copyProperties(studentDetailLoop, studentDetail);
-
-                singleStudent.setDetail(studentDetail);
-
-                studentsDtos.add(singleStudent);
-
-            }
-
-            result.setStudentData(studentsDtos);
+            result.add(studentDetail);
 
             return result;
 
